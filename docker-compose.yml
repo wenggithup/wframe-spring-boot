@@ -1,0 +1,39 @@
+# yaml 配置
+version: '3'
+services:
+#  quickstart:
+#    build: wframe-boot-quickstart
+#    ports:
+#      - "19000:19900"
+  demo:
+    # 定义启动容器的名称
+    container_name: demo_test
+    build:
+      # 上下文路径
+      context: ./demo
+      # dockerfile的名称
+      dockerfile: Dockerfile
+
+      labels:
+        - "com.weng.demo"
+      # dockerfile构建时环境变量，仅在build阶段生效，且是通过覆盖的方式
+      args:
+        buildversion: 1
+
+    # 指定镜像名称:tag
+    image: demo_test:1.0
+    depends_on:
+      - redis
+      - mysql
+    links:
+      - mysql
+    ports:
+      - "18080:8080"
+
+  redis:
+    image: 93f2223d3607
+    container_name: myredis2
+
+  mysql:
+    image: 087c6f86492c
+    container_name: mysql2

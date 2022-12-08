@@ -1,0 +1,65 @@
+wframe:
+  # 配置多数据源
+  dataSource:
+    # 数据源名称
+    datasourceName1: dataSource1
+      #是否为主数据源，默认false，如果设置为true，则为默认的数据源
+      primary: true
+      # 用户名
+      username: test
+      # 密码
+      password:
+      # 驱动
+      driverClassName:
+      # URL
+      url:
+      pool:
+        #选择数据源名称
+        name:
+        # 初始连接数
+        initialPoolSize:
+        # 最小空闲连接数
+        minimumIdlePoolSize:
+        # 最大连接数 = active连接数+空闲连接数
+        maximumIdlePooSize:
+        # 连接池空闲最大等待时间
+        maxPoolWaitTime:
+        # 链接超时时间
+        connectionTimeOut:
+        # 初始化sql
+        connectInitSql:
+
+    datasourceName2:
+      username:
+      password:
+      driver-class-name:
+      url:
+  orm:
+    # 这里先自动配置，基本上满足需要
+    mybatis:
+    jpa:
+  queue:
+    kafka:
+      bootstrapServers:
+      producer:
+          #0: producer不会等待broker发送ack。生产者只要把消息发送给broker之后，就认为发送成功了，这是第1种情况；
+          #1: 当leader接收到消息之后发送ack。生产者把消息发送到broker之后，并且消息被写入到本地文件，才认为发送成功，这是第二种情况；#-1: 当所有的follower都同步消息成功后发送ack。不仅是主的分区将消息保存成功了，
+          #而且其所有的分区的副本数也都同步好了，才会被认为发动成功，这是第3种情况。
+          acks:
+          retries:
+          #发送数据大小
+          batchSize:
+      consumer:
+        # 这是一个数据量阈值，经测试是500条
+        # 单consumer消费一定量的消息之后，将会自动向zookeeper提交offset信息，offset信息并不是每消费一次就向zk提交一次，
+        # 而是先在本地保存（内存），并定期提交，默认为true
+        enableAutoCommit:
+        groupId:
+        # 最大批次拉取消息
+        maxPollRecords:
+        autoOffsetReset:
+        # 重试次数，对于可重试异常，那么只要在规定的次数内自行恢复了，就不会抛出异常，默认是0
+
+
+
+
